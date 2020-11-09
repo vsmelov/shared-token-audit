@@ -90,15 +90,7 @@ contract Token is StandardToken {
         if (0 == initialBalance)
             return (true, 0);
 
-        uint32 maxIter = 30;
-        uint32 iter = 0;
-
         for (uint256 emissionToProcess = lastAccountEmissionNum; emissionToProcess <= lastEmissionNum; emissionToProcess++) {
-            iter += 1;
-            if (iter >= maxIter) {
-                break;
-            }
-            
             EInfo storage emission = m_emissions[emissionToProcess];
 
             if (0 == emission.totalSupply)
