@@ -111,6 +111,10 @@ because it's not obvious what is happening inside and that's why it's harder to 
 
 5. There is still one place where unsafe math is used. The function `getLastEmissionNum`, yeah in current implementation the array is always not empty, but it becomes extremely important requirement if we will remove initial supply from constructor. Maybe it's better to add safeMinus or assert array to be not empty.
 
+6. The check `if (m_totalDividends == totalBalanceWasWhenLastPay)` is better to do with indexes from `m_lastAccountEmission` and `getLastEmissionNum`.
+
+    This is more consistent with the essence of the check.
+
 ## CONCLUSION
 
 Provided smart contracts were audited and several troublesome issues were identified:
