@@ -82,16 +82,22 @@ No major problems found.
 
 ### WARNINGS
 
-1. Fallback function requires too much gas (>2300) so it can't be called from other contracts.
+1. Fallback function requires too much gas (>2300) so it can't be called from other contracts. 
 
-2. calculateDividendsFor potentially can consume a lot of gas.
+    (todo) should be investegeted deeply.
 
-    https://solidity.readthedocs.io/en/v0.4.26/security-considerations.html#gas-limit-and-loops
+2. calculateDividendsFor potentially can consume a lot of gas. 
+
+    https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol#L93
 
     So it's better to create limited version of the payDividend function and place limit on maximum number of iterations in for-loop
     so dividends could be payed by dozens.  
+    
+    https://solidity.readthedocs.io/en/v0.4.26/security-considerations.html#gas-limit-and-loops
 
 3. Division which is used on dividend calculation is not "honest", it round the result to the nearest integer.
+
+    https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol#L110
     
     It's not a big deal, because rounding to 1 Wei is absolutely enough (less then $0.0000000000001).
     But anyway should be kept in mind. 
@@ -114,13 +120,20 @@ because it's not obvious what is happening inside and that's why it's harder to 
 6. The check `if (m_totalDividends == totalBalanceWasWhenLastPay)` is better to do with indexes from `m_lastAccountEmission` and `getLastEmissionNum`.
 
     This is more consistent with the essence of the check.
+    
+    https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol#L84
 
 7. The last variable set `totalBalanceWasWhenLastPay = m_emissions[emissionToProcess.plus(1)].totalBalanceWas;` is not used below, so should be removed.
 
+    https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol#L107
+
 8. The variable `EInfo storage emission = m_emissions[emissionToProcess];` is only used twice to get `emission.totalSupply`, so it would be interesting, how gas consumption will change if we will only create one variable once `uint256 emissionToProcessTotalSupply = m_emissions[emissionToProcess].totalSupply;`.
 
+    https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol#L94
+
 9. `totalEtherDuringEmission = 0;` after `if (emissionToProcess == lastEmissionNum) {` is not required, because we immediately reset the variable on the line below.
-                
+
+    https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol#L102
 
 ## CONCLUSION
 
