@@ -115,6 +115,8 @@ because it's not obvious what is happening inside and that's why it's harder to 
 
     This is more consistent with the essence of the check.
 
+7. The last variable set `totalBalanceWasWhenLastPay = m_emissions[emissionToProcess.plus(1)].totalBalanceWas;` is not used below, so should be removed.
+
 ## CONCLUSION
 
 Provided smart contracts were audited and several troublesome issues were identified:
