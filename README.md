@@ -117,6 +117,8 @@ because it's not obvious what is happening inside and that's why it's harder to 
 
 7. The last variable set `totalBalanceWasWhenLastPay = m_emissions[emissionToProcess.plus(1)].totalBalanceWas;` is not used below, so should be removed.
 
+8. The variable `EInfo storage emission = m_emissions[emissionToProcess];` is only used twice to get `emission.totalSupply`, so it would be interesting, how gas consumption will change if we will only create one variable once `uint256 emissionToProcessTotalSupply = m_emissions[emissionToProcess].totalSupply;`.
+
 ## CONCLUSION
 
 Provided smart contracts were audited and several troublesome issues were identified:
