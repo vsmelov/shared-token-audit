@@ -12,7 +12,7 @@ so all dividend computations are lazy (computed when explicitly called or as a r
 ### Scope of the Audit
 
 The scope of the audit includes smart contract at 
-- https://pastebin.com/raw/ERM9EWMx
+- https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-original.sol
 
 Also the contract uses source code from these links (but they were not reviewed) 
 - https://github.com/aragon/zeppelin-solidity/blob/master/contracts/token/ERC20Lib.sol
@@ -61,6 +61,8 @@ Stages of the audit were as follows:
 
 5. It was necessary to add `import 'https://github.com/aragon/zeppelin-solidity/blob/master/contracts/SafeMathLib.sol';`, 
 and use it for uint256 and rename uint256 methods everywhere.
+
+So the modified source code is here - https://github.com/vsmelov/shared-token-audit/blob/main/StandardToken-modified.sol
 
 ### CRITICAL
 
